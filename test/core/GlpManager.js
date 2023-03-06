@@ -58,7 +58,8 @@ describe("GlpManager", function () {
 
     shortsTracker = await deployContract("ShortsTracker", [vault.address])
     await shortsTracker.setIsGlobalShortDataReady(true)
-
+    
+    // GlpManager.constructor(address _vault, address _usdg, address _glp, address _shortsTracker, uint256 _cooldownDuration) 
     glpManager = await deployContract("GlpManager", [
       vault.address,
       usdg.address,
@@ -235,6 +236,7 @@ describe("GlpManager", function () {
     await bnb.mint(user1.address, expandDecimals(1, 18))
     await bnb.connect(user1).approve(glpManager.address, expandDecimals(1, 18))
 
+    // function addLiquidity(address _token, uint256 _amount, uint256 _minUsdg, uint256 _minGlp) external override nonReentrant returns (uint256) {
     await glpManager.connect(user1).addLiquidity(
       bnb.address,
       expandDecimals(1, 18),
